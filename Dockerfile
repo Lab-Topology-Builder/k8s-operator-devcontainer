@@ -31,9 +31,10 @@ ENV PATH $PATH:/usr/local/go/bin
 
 # Install Operator SDK
 ENV OPERATOR_SDK_VERSION v1.26.1
-RUN curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_${OS}${TARGETARCH} \
-    && chmod +x operator-sdk_${OS}${TARGETARCH} \
-    && mv operator-sdk_${OS}${TARGETARCH} /usr/local/bin/operator-sdk
+RUN curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_${OS}_${TARGETARCH} \
+    && chmod +x operator-sdk_${OS}_${TARGETARCH} \
+    && mv operator-sdk_${OS}_${TARGETARCH} /usr/local/bin/operator-sdk \
+    && echo $(operator-sdk version)
 
 # Install kubectl
 ENV KUBECTL_VERSION v1.26.1
@@ -48,9 +49,9 @@ RUN curl -LO https://get.helm.sh/helm-${HELM_VERSION}-${OS}-${TARGETARCH}.tar.gz
     && mv ${OS}-${TARGETARCH}/helm /usr/local/bin/helm \
     && rm -rf helm-${HELM_VERSION}-${OS}-${TARGETARCH}.tar.gz ${OS}-${TARGETARCH}
 
-# Install K0s
-ENV K0S_VERSION v1.26.1+k0s.0
-RUN curl -sSLF https://get.k0s.sh | sh
+# Install Okteto
+ENV OKTETO_VERSION 2.12.1
+RUN curl https://get.okteto.com -sSfL | sh -
 
 WORKDIR /workspace
 RUN chown vscode:vscode /workspace
