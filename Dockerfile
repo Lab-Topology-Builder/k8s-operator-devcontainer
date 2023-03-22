@@ -56,6 +56,7 @@ RUN (set -x; cd "$(mktemp -d)" && \
     curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&\
     tar zxvf "${KREW}.tar.gz" && \
     ./"${KREW}" install krew)
+ENV PATH "/root/.krew/bin:${PATH}"
 
 # Install Okteto
 ENV OKTETO_VERSION 2.13.0
@@ -66,7 +67,7 @@ RUN kubectl krew install ctx \
     && kubectl krew install ns
     
 # Install mkdocs
-RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin
+RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin mkdocs-with-pdf
 
 # Install k9s
 RUN curl -sS https://webinstall.dev/k9s | bash
