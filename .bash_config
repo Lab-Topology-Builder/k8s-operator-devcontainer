@@ -1,0 +1,32 @@
+# fzf config
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
+
+eval $(ssh-agent -s) 1>/dev/null
+
+# Kubernetes
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
+alias ksh="k run -i --tty --rm debug --image=alpine --restart=Never -- sh"
+
+# Operator SDK
+source <(operator-sdk completion bash)
+
+# Docker
+source <(docker completion bash)
+alias d=docker
+complete -F __start_docker d
+
+# Git
+source /usr/share/bash-completion/completions/git
+alias g=git
+complete -F __start_git g
+
+# Helm
+source <(helm completion bash)
+alias h=helm
+complete -F __start_helm h
+
+# Krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
