@@ -67,7 +67,7 @@ RUN kubectl krew install ctx \
     && kubectl krew install ns
     
 # Install mkdocs
-RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin mkdocs-with-pdf
+RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin
 
 # Install k9s
 RUN curl -sS https://webinstall.dev/k9s | bash
