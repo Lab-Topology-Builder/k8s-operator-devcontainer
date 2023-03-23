@@ -75,8 +75,11 @@ RUN curl -sS https://webinstall.dev/k9s | bash
 # Install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
     && ~/.fzf/install
+COPY fzf-completion.bash /usr/share/bash-completion/fzf-completion.bash
+COPY fzf-key-bindings.bash /usr/share/bash-completion/fzf-key-bindings.bash
 
 # Add completion
+COPY docker-completion.bash /usr/share/bash-completion/docker-completion.bash
 COPY .bash_config /home/vscode/.bash_config
 RUN echo "source ~/.bash_config" >> /home/vscode/.bashrc
 

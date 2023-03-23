@@ -13,3 +13,5 @@
 
 # Docker build output
 out.tar
+out
+oci

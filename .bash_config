@@ -1,6 +1,6 @@
 # fzf config
-source /usr/share/fzf/key-bindings.bash
-source /usr/share/fzf/completion.bash
+source /usr/share/bash-completion/fzf-key-bindings.bash
+source /usr/share/bash-completion/fzf-completion.bash
 
 eval $(ssh-agent -s) 1>/dev/null
 
@@ -14,7 +14,7 @@ alias ksh="k run -i --tty --rm debug --image=alpine --restart=Never -- sh"
 source <(operator-sdk completion bash)
 
 # Docker
-source <(docker completion bash)
+source /usr/share/bash-completion/docker-completion.bash
 alias d=docker
 complete -F __start_docker d
 

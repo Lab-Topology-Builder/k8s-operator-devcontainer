@@ -4,4 +4,4 @@ local-create:
 	docker buildx create --name multiarchbuilder --use --bootstrap
 
 local-build:
-	docker buildx build --platform linux/amd64,linux/arm64 -t k8s-operator-devcontainer:latest . -o type=tar,dest=out.tar --progress=plain
+	docker buildx build --platform linux/amd64,linux/arm64 -t k8s-operator-devcontainer:latest . -o type=oci,dest=out --progress=plain
