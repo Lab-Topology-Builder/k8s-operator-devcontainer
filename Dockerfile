@@ -15,6 +15,7 @@ ENV LC_ALL en_US.UTF-8
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
+    vim \
     git \
     python3 \
     python3-pip \
