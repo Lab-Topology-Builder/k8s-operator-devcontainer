@@ -14,6 +14,7 @@ ENV LC_ALL en_US.UTF-8
 # Install common tools
 RUN apt-get update && apt-get install -y \
     build-essential \
+    bash-completion \
     curl \
     vim \
     git \

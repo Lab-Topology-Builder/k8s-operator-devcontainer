@@ -1,8 +1,10 @@
+eval $(ssh-agent -s) 1>/dev/null
+source /etc/bash_completion
+
 # fzf config
 source /usr/share/bash-completion/fzf-key-bindings.bash
 source /usr/share/bash-completion/fzf-completion.bash
 
-eval $(ssh-agent -s) 1>/dev/null
 
 # Kubernetes
 source <(kubectl completion bash)
