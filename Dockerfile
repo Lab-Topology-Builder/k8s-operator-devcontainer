@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     git \
     python3 \
     python3-pip \
+    fzf \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Go
@@ -74,9 +75,7 @@ RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocs
 # Install k9s
 RUN curl -sS https://webinstall.dev/k9s | bash
 
-# Install fzf
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git /home/vscode/.fzf \
-    && /home/vscode/.fzf/install
+# Install fzf completion
 COPY fzf-completion.bash /usr/share/bash-completion/fzf-completion.bash
 COPY fzf-key-bindings.bash /usr/share/bash-completion/fzf-key-bindings.bash
 
