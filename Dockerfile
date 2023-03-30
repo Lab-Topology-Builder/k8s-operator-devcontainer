@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y \
     git \
     python3 \
     python3-pip \
-    fzf \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Go
@@ -90,3 +89,7 @@ RUN chown vscode:vscode /workspace
 VOLUME ["/workspace"]
 
 USER vscode
+
+# Install fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git /home/vscode/.fzf \
+    && /home/vscode/.fzf/install --all
