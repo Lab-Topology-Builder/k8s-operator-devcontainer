@@ -32,3 +32,6 @@ complete -F __start_helm h
 
 # Krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# Make sure kubeconfig is not group or world-readable
+chmod 600 ~/.kube/config
