@@ -71,9 +71,6 @@ RUN kubectl krew install ctx \
 # Install mkdocs
 RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin
 
-# Install k9s
-RUN curl -sS https://webinstall.dev/k9s | bash
-
 # Install fzf completion
 COPY fzf-completion.bash /usr/share/bash-completion/fzf-completion.bash
 COPY fzf-key-bindings.bash /usr/share/bash-completion/fzf-key-bindings.bash
@@ -89,6 +86,9 @@ RUN chown vscode:vscode /workspace
 VOLUME ["/workspace"]
 
 USER vscode
+
+# Install k9s
+RUN curl -sS https://webinstall.dev/k9s | bash
 
 # Install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git /home/vscode/.fzf \
