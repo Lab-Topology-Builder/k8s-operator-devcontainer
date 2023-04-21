@@ -1,4 +1,21 @@
+# Go tools build stage
+FROM golang:1.20.1 AS build
+
+ARG TARGETARCH
+ARG OS=linux
+
+# Install Go tools
+RUN go install github.com/cweill/gotests/gotests@v1.6.0 \
+    && go install github.com/fatih/gomodifytags@v1.16.0 \
+    && go install github.com/josharian/impl@v1.1.0 \
+    && go install github.com/go-delve/delve/cmd/dlv@latest \
+    && go install honnef.co/go/tools/cmd/staticcheck@latest \
+    && go install golang.org/x/tools/gopls@latest
+
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+
+# Copy Go tools from build stage
+COPY --from=build /go/bin/* /usr/local/bin/
 
 ARG TARGETARCH
 ARG OS=linux
