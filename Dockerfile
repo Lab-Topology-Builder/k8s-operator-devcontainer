@@ -50,26 +50,12 @@ RUN curl -LO https://get.helm.sh/helm-${HELM_VERSION}-${OS}-${TARGETARCH}.tar.gz
     && mv ${OS}-${TARGETARCH}/helm /usr/local/bin/helm \
     && rm -rf helm-${HELM_VERSION}-${OS}-${TARGETARCH}.tar.gz ${OS}-${TARGETARCH}
 
-# Install krew
-RUN (set -x; cd "$(mktemp -d)" && \
-    OS="$(uname | tr '[:upper:]' '[:lower:]')" && \
-    ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && \
-    KREW="krew-${OS}_${ARCH}" &&\
-    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&\
-    tar zxvf "${KREW}.tar.gz" && \
-    ./"${KREW}" install krew)
-ENV PATH "/root/.krew/bin:${PATH}"
-
 # Install Okteto
 ENV OKTETO_VERSION 2.13.0
 RUN curl https://get.okteto.com -sSfL | sh -
 
-# Install kubectx and kubens
-RUN kubectl krew install ctx \
-    && kubectl krew install ns
-    
 # Install mkdocs
-RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin
+RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin mkdocs-glightbox
 
 # Install fzf completion
 COPY fzf-completion.bash /usr/share/bash-completion/fzf-completion.bash
@@ -80,12 +66,26 @@ COPY docker-completion.bash /usr/share/bash-completion/docker-completion.bash
 COPY .bash_config /home/vscode/.bash_config
 RUN echo "source ~/.bash_config" >> /home/vscode/.bashrc
 
-
 WORKDIR /workspace
 RUN chown vscode:vscode /workspace
 VOLUME ["/workspace"]
 
 USER vscode
+
+# Install krew
+RUN (set -x; cd "$(mktemp -d)" && \
+    OS="$(uname | tr '[:upper:]' '[:lower:]')" && \
+    ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && \
+    KREW="krew-${OS}_${ARCH}" &&\
+    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&\
+    tar zxvf "${KREW}.tar.gz" && \
+    ./"${KREW}" install krew)
+ENV PATH "${KREW_ROOT:-$HOME/.krew}/bin:${PATH}"
+
+# Install kubectx and kubens
+RUN kubectl krew install ctx \
+    && kubectl krew install ns
+    
 
 # Install k9s
 RUN curl -sS https://webinstall.dev/k9s | bash
