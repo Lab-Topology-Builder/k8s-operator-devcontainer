@@ -83,9 +83,8 @@ RUN (set -x; cd "$(mktemp -d)" && \
 ENV PATH "${KREW_ROOT:-$HOME/.krew}/bin:${PATH}"
 
 # Install kubectx and kubens
-RUN kubectl krew install ctx \
-    && kubectl krew install ns
-    
+RUN ["/bin/bash","kubectl","krew","install","ctx"]
+RUN ["/bin/bash","kubectl","krew","install","ns"]
 
 # Install k9s
 RUN curl -sS https://webinstall.dev/k9s | bash
