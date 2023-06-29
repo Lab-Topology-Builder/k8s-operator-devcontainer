@@ -10,7 +10,9 @@ RUN go install github.com/cweill/gotests/gotests@v1.6.0 \
     && go install github.com/josharian/impl@v1.1.0 \
     && go install github.com/go-delve/delve/cmd/dlv@latest \
     && go install honnef.co/go/tools/cmd/staticcheck@latest \
-    && go install golang.org/x/tools/gopls@latest
+    && go install golang.org/x/tools/gopls@latest \
+    && go install github.com/onsi/ginkgo/v2/ginkgo@v2.10.0 \
+    && go install github.com/elastic/crd-ref-docs@v0.0.9
 
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
@@ -72,7 +74,7 @@ ENV OKTETO_VERSION 2.13.0
 RUN curl https://get.okteto.com -sSfL | sh -
 
 # Install mkdocs
-RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin mkdocs-glightbox
+RUN pip3 install mkdocs mkdocs-material pymdown-extensions mkdocs-exclude mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-print-site-plugin mkdocs-awesome-pages-plugin mkdocs-glightbox mkdocs-git-authors-plugin mkdocs-git-revision-date-localized-plugin mkdocs-git-committers-plugin-2 pillow cairosvg
 
 # Install fzf completion
 COPY fzf-completion.bash /usr/share/bash-completion/fzf-completion.bash
